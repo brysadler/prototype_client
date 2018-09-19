@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { registerUser } from "../actions/initActions"
+import { registerUser } from "../actions/userActions"
 import { Input, Error } from '../media/Login'
 import { Register_Container, Register_Title, RegisterForm } from "../media/Register"
 import Button from './button'

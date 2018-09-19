@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Login_Container, Title, Input, LoginForm, RememberCheck, RememberMe, LoginFoot, AnchorRight, AnchorLeft, Error } from '../media/Login'
 import Button from './button'
-import { loginUser } from "../actions/initActions"
+import { loginUser } from "../actions/userActions"
 import { modalRegister } from "../actions/viewActions"
 import { connect } from 'react-redux'
 
