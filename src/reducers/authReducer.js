@@ -1,4 +1,4 @@
-import { LOGIN, REGISTER } from "../actions/types"
+import {LINK_ACCOUNT, LOGIN, REGISTER} from "../actions/types"
 
 const initialState = {
   user: {},
@@ -19,6 +19,11 @@ export default (state = initialState, action) => {
         ...state,
         user: action.payload,
         valid: action.validationError || {}
+      }
+    case LINK_ACCOUNT:
+      return {
+        ...state,
+        user: action.payload
       }
     default:
       return state

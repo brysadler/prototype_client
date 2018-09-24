@@ -14,3 +14,11 @@ export const modalProfile = () => dispatch => {
     payload: 'profile'
   })
 }
+
+export const modalLink = () => dispatch => {
+  console.log('modal link')
+  dispatch({
+    type: MODAL,
+    payload: 'link'
+  })
+}

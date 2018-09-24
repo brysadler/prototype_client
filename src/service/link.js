@@ -1,36 +1,30 @@
-// import { config } from '../config'
+import React from 'react'
+import { config } from '../config'
+//const Plaid = require('plaid')
 
-const fetchToken = (token, id) => {
+export const addAccount = (token, id) => {
   console.log('account linking..')
-  fetch('http://localhost:3030/addAccount', {
+  return call('http://localhost:3030/addAccount', { token, id })
+}
+
+function call (url, params) {
+  return fetch(url, {
     method: 'POST',
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      'Accept': 'application/json'
     },
-    body: { public_token: token, id }
+    body: JSON.stringify({ public_token: params.token, id: params.id})
   })
-    .then((res) => res.json())
+    .then((res) => Promise.resolve(res.json()))
+    .catch(rej => console.log(rej))
 }
-
-export const linkAccount = (id) => {
-  const handler = Plaid.create({
-    apiVersion: 'v2',
-    clientName: 'Plaid Walkthrough Demo',
-    env: 'sandbox',
-    product: ['transactions'],
-    key: config.link.key,
-    onSuccess: (publicToken) => fetchToken(publicToken, id)
-  })
-
-  handler.open()
-}
-
 // create user service
 // add user (get back id from server, amongst other details)
 // login user (get back id from server, amongst other details)
 
 // create link service
-// link account via Link
+// link account via LinkContainer
 
 // create plaid service
 // get transactions

@@ -3,16 +3,25 @@ import { validateLogin, validateRegistration } from "../utils"
 import { login, register } from "../service/user"
 
 
-export const loginUser = (creds) => dispatch => {
+export const loginUser = (creds) => async (dispatch) => {
   const valid = validateLogin(creds)
   if (valid.isValidated) {
-    return login(creds)
-      .then((user) => {
-        dispatch({
-          type: LOGIN,
-          payload: { name: user.firstName, dob: user.dob, email: user.email }
-        })
+    const res = await login(creds)
+    console.log('response:', res)
+    if (res.statusCode === 200) {
+      const user = res
+      //console.log('user:', user)
+
+      dispatch({
+        type: LOGIN,
+        payload: user
       })
+    } else {
+      dispatch({
+        type: LOGIN,
+        validationError: { isValidated: false, message: 'Invalid username or password'}
+      })
+    }
   } else {
     dispatch({
       type: LOGIN,
@@ -28,7 +37,7 @@ export const registerUser = (userInfo) => dispatch => {
       .then((user) => {
         dispatch({
           type: REGISTER,
-          payload: { name: user.firstName, dob: user.dob, email: user.email }
+          payload: user
         })
       })
   } else {
